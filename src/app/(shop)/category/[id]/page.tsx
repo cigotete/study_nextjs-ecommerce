@@ -1,11 +1,14 @@
 import { notFound } from 'next/navigation';
-
+import { initialData } from '@/seed/seed';
+import { ProductGrid, Title } from '@/components';
 
 interface Props {
   params: {
     id: string;
   }
 }
+
+const products = initialData.products;
 
 export default async function Category({ params }: Props) {
 
@@ -15,9 +18,23 @@ export default async function Category({ params }: Props) {
     notFound();
   }
 
+  const filteredProducts = products.filter(
+    product => product.gender === id
+  );
+
+  const title=`${ id.toUpperCase() }`;
+
   return (
     <div>
-      <h1>Category Page { id }</h1>
+      <Title
+        title= { title }
+        subtitle="Productos de la categoría"
+        className="m-3"
+      />
+
+      <ProductGrid
+        products={ filteredProducts }
+      />
     </div>
   );
 }
