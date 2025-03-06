@@ -7,10 +7,11 @@ interface Props {
   }
 }
 
-export default function Category({ params }: Props) {
+export default async function Category({ params }: Props) {
 
-  const { id } = params;
-  if ( id === 'cat1' ) {
+  const { id } = await params;
+  const validCategories = ['women', 'men', 'kid'];
+  if (!validCategories.includes(id)) {
     notFound();
   }
 
