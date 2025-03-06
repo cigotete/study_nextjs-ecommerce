@@ -1,40 +1,44 @@
-import { notFound } from 'next/navigation';
-import { initialData } from '@/seed/seed';
 import { ProductGrid, Title } from '@/components';
+import type { ValidCategory } from '@/interfaces';
+import { initialData } from '@/seed/seed';
+import { notFound } from 'next/navigation';
 
+const seedProducts = initialData.products;
 interface Props {
   params: {
-    id: string;
+    id: ValidCategory
   }
 }
-
-const products = initialData.products;
 
 export default async function Category({ params }: Props) {
 
   const { id } = await params;
-  const validCategories = ['women', 'men', 'kid'];
-  if (!validCategories.includes(id)) {
-    notFound();
+
+  const validCategories: ValidCategory[] = ['men', 'women', 'kid', 'unisex'];
+  if (!validCategories.includes(id)) { // Validation on execution time.
+    return notFound();
+  }
+  const products = seedProducts.filter( product => product.gender === id );
+
+  const labels: Record<ValidCategory, string>  = {
+    'men': 'for men',
+    'women': 'for women',
+    'kid': 'for kids',
+    'unisex': 'for everyone',
   }
 
-  const filteredProducts = products.filter(
-    product => product.gender === id
-  );
-
-  const title=`${ id.toUpperCase() }`;
-
   return (
-    <div>
+    <>
       <Title
-        title= { title }
-        subtitle="Productos de la categoría"
-        className="m-3"
+        title={`Items for ${ labels[id] }`}
+        subtitle="All products"
+        className="mb-2"
       />
 
-      <ProductGrid
-        products={ filteredProducts }
+      <ProductGrid 
+        products={ products }
       />
-    </div>
+      
+    </>
   );
 }
