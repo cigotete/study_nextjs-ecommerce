@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { initialData } from '@/seed/seed';
 import { titleFont } from '@/config/fonts';
+import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector } from '@/components';
 
 interface Props {
   params: {
@@ -25,8 +26,18 @@ export default async function Product( { params }: Props ) {
       <div className="col-span-1 md:col-span-2 ">
 
         {/* Mobile Slideshow */}
+        <ProductMobileSlideshow
+          title={ product.title }
+          images={ product.images }
+          className="block md:hidden"
+        />
 
         {/* Desktop Slideshow */}
+        <ProductSlideshow
+          title={ product.title }
+          images={ product.images }
+          className="hidden md:block"
+        />
 
       </div>
 
@@ -39,10 +50,15 @@ export default async function Product( { params }: Props ) {
         <p className="text-lg mb-5">${ product.price }</p>
 
         {/* Size selector */ }
-
+        <SizeSelector
+          selectedSize={ product.sizes[ 1 ] }
+          availableSizes={ product.sizes }
+        />
 
         {/* Qty selector */ }
-
+        <QuantitySelector
+          quantity={ 2 }
+        />
 
         {/* Button */ }
         <button className="btn-primary my-5">
