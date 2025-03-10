@@ -1,5 +1,7 @@
 # Description
 
+Based on educational material source: https://cursos.devtalles.com/courses/nextjs
+
 ## Run dev
 
 1. Clone the repository.
