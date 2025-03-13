@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
-
-import { initialData } from '@/seed/seed';
 import { titleFont } from '@/config/fonts';
 import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector } from '@/components';
+import { getProductBySlug } from "@/actions";
 
 interface Props {
   params: Promise<{
@@ -13,7 +12,7 @@ interface Props {
 export default async function Product( { params }: Props ) {
 
   const { slug } = await params;
-  const product = initialData.products.find( product => product.slug === slug );
+  const product = await getProductBySlug(slug);
 
   if ( !product ) {
     notFound();
