@@ -1,5 +1,6 @@
 export const revalidate = 86400;
 
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from 'next/navigation';
 import { titleFont } from '@/config/fonts';
 import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from '@/components';
@@ -9,6 +10,29 @@ interface Props {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const parameters = await params; 
+  const slug = parameters.slug;
+
+  // fetch data
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title ?? "Producto no encontrado",
+    description: product?.description ?? "",
+    openGraph: {
+      title: product?.title ?? "Producto no encontrado",
+      description: product?.description ?? "",
+      images: [ `/products/${ product?.images[1] }`],
+    },
+  };
 }
 
 export default async function Product( { params }: Props ) {
