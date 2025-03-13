@@ -10,14 +10,14 @@ const productsInCart = [
   initialData.products[ 2 ],
 ];
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function Order( { params }: Props ) {
+export default async function Order( { params }: Props ) {
 
-  const { id } = params;
+  const { id } = await params;
 
   // Todo: verify
   // redirect(/)
