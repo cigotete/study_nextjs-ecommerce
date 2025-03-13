@@ -1,4 +1,4 @@
-export const revalidate = 60; // 60 segundos
+export const revalidate = 60; // Revalidation when the page is visited again after 60 seconds.
 
 import { redirect } from 'next/navigation';
 import { getPaginatedProductsWithImages } from '@/actions';
