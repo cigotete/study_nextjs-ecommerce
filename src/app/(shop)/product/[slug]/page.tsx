@@ -1,6 +1,8 @@
+export const revalidate = 86400;
+
 import { notFound } from 'next/navigation';
 import { titleFont } from '@/config/fonts';
-import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector } from '@/components';
+import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from '@/components';
 import { getProductBySlug } from "@/actions";
 
 interface Props {
@@ -42,6 +44,8 @@ export default async function Product( { params }: Props ) {
 
       {/* Details */ }
       <div className="col-span-1 px-5">
+
+        <StockLabel slug={product.slug} />
 
         <h1 className={ ` ${ titleFont.className } antialiased font-bold text-xl` }>
           { product.title }
