@@ -3,13 +3,16 @@
 import { useState } from "react";
 
 import { QuantitySelector, SizeSelector } from "@/components";
-import type { Product, ValidSize } from "@/interfaces";
+import type { CartProduct, Product, ValidSize } from "@/interfaces";
+import { useCartStore } from '@/state';
 
 interface Props {
   product: Product;
 }
 
 export const AddToCart = ({ product }: Props) => {
+
+  const addProductToCart = useCartStore( state => state.addProductTocart );
 
   const [size, setSize] = useState<ValidSize | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
@@ -19,6 +22,18 @@ export const AddToCart = ({ product }: Props) => {
     setPosted(true);
 
     if (!size) return;
+
+    const cartProduct: CartProduct = {
+      id: product.id,
+      slug: product.slug,
+      title: product.title,
+      price: product.price,
+      quantity: quantity,
+      size: size,
+      image: product.images[0]
+    }
+
+    addProductToCart(cartProduct);
 
     setPosted(false);
     setQuantity(1);
