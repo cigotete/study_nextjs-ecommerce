@@ -5,12 +5,17 @@ async function main() {
 
   // 1. Delete any record.
   await Promise.all([
+    await prisma.user.deleteMany(),
     await prisma.productImage.deleteMany(),
     await prisma.product.deleteMany(),
     await prisma.category.deleteMany()
   ]);
   
-  const { categories, products } = initialData;
+  const { categories, products, users } = initialData;
+
+  await prisma.user.createMany({
+    data: users
+  });
 
   //  2. Inserting Categories
   const categoriesData = categories.map( category => ({
