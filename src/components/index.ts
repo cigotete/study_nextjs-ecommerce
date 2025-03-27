@@ -1,4 +1,4 @@
-export * from './provider/Provider';
+export * from './providers/providers';
 
 export * from './product/slideshow/ProductSlideshow';
 export * from './product/slideshow/ProductMobileSlideshow';
