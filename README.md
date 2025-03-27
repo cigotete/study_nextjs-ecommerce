@@ -11,5 +11,6 @@ Based on educational material source: https://cursos.devtalles.com/courses/nextj
 5. Run Prisma migrations ```npx prisma migrate dev --name MeaningfulName```
 6. Execute seed ```npm run seed```
 7. Run the project ```npm run d```
+8. Clean localStorage of the browser
 
 ## Run prod
