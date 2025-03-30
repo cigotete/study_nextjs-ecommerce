@@ -4,7 +4,7 @@ import { IoCardOutline } from "react-icons/io5";
 import { getOrderById } from "@/actions/order/get-order-by-id";
 import { redirect } from "next/navigation";
 import { currencyFormat } from "@/utils";
-import { Title, PayPalButton } from "@/components";
+import { Title, PayPalButton, OrderStatus } from "@/components";
 
 interface Props {
   params: {
@@ -122,7 +122,11 @@ export default async function OrdersByIdPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              <PayPalButton amount={order!.total} orderId={order!.id} />
+              {order?.isPaid ? (
+                <OrderStatus isPaid={order?.isPaid ?? false} />
+              ) : (
+                <PayPalButton amount={order!.total} orderId={order!.id} />
+              )}
             </div>
           </div>
         </div>
