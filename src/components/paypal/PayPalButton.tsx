@@ -12,7 +12,7 @@ interface Props {
 export const PayPalButton = ({ orderId, amount }: Props) => {
 
   const [{ isPending }] = usePayPalScriptReducer(); // Skeleton
-  const rountedAmount = (Math.round(amount * 100)) / 100; //123.23
+  const roundedAmount = (Math.round(amount * 100)) / 100; //123.23
 
   if ( isPending ) { // Skeleton
     return (
@@ -31,7 +31,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
         {
           //invoice_id: orderId,
           amount: {
-            value: `${ rountedAmount }`,
+            value: `${ roundedAmount }`,
           }
 
         }
