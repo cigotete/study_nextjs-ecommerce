@@ -31,11 +31,12 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
         {
           invoice_id: orderId,
           amount: {
-            value: `${ roundedAmount }`,
+            currency_code: 'USD',
+            value: `${roundedAmount}`,
           }
-
         }
-      ]
+      ],
+      intent: 'CAPTURE'
     });
 
     const { ok } = await setTransactionId( orderId, transactionId );
@@ -50,6 +51,8 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
     
     const details = await actions.order?.capture();
     if ( !details ) return;
+
+    if ( !details.id ) return;
 
     await paypalCheckPayment( details.id );
 

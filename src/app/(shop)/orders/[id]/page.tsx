@@ -7,9 +7,9 @@ import { currencyFormat } from "@/utils";
 import { Title, PayPalButton, OrderStatus } from "@/components";
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function OrdersByIdPage({ params }: Props) {

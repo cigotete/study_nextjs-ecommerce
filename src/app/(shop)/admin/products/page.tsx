@@ -8,9 +8,9 @@ import { currencyFormat } from "@/utils";
 import Link from "next/link";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 export default async function ProductsPage({ searchParams }: Props) {

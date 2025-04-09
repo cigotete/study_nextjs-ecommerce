@@ -3,10 +3,10 @@ import { Title } from '@/components';
 import { redirect } from 'next/navigation';
 import { ProductForm } from './ui/ProductForm';
 
-interface Props {
-  params: {
+type Props = {
+  params: Promise<{
     slug: string;
-  }
+  }>
 }
 
 export default async function ProductPage({ params }: Props) {
